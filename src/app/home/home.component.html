@@ -1,0 +1,111 @@
+
+<mat-form-field>
+  <mat-label>Fitrar</mat-label>
+  <input
+    matInput
+    placeholder="Ex. first travel"
+    (keyup)="applyFilter($event)"
+  />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Ciudad</mat-label>
+  <input
+    matInput
+    placeholder="Ciudad"
+    (keyup)="applyFilter($event)"
+  />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Vehiculo</mat-label>
+  <input
+    matInput
+    placeholder="veiculo"
+    (keyup)="applyFilter($event)"
+  />
+</mat-form-field>
+
+<div class="example-container mat-elevation-z8" matSort>
+  <mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="ciudad">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Ciudad
+      </mat-header-cell>
+      <mat-cell *matCellDef="let travels">
+        <span class="mobile-label">Ciudad:</span>
+        {{ travels.city }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="codPais">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        CodPais
+      </mat-header-cell>
+      <mat-cell *matCellDef="let travels">
+        <span class="mobile-label">CodPais:</span>
+        {{ travels.countryCode }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="vehiculo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Vehiculo
+      </mat-header-cell>
+      <mat-cell *matCellDef="let travels">
+        <span class="mobile-label">Vehiculo:</span>
+        {{ travels.vehicleType }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Fecha
+      </mat-header-cell>
+      <mat-cell *matCellDef="let travels">
+        <span class="mobile-label">Fecha:</span>
+        {{ travels.date }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Actions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let travels">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="reschedule()">
+            <mat-icon>edit</mat-icon>
+            <span>Reprogramar</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Cancelar</span>
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    [length]="travels.length"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+</div>
+
+
+ 
+ 
