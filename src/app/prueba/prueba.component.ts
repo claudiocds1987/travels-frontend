@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableFilter } from 'mat-table-filter';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { Travel } from '../models/travel';
 import { MyApiService } from './../services/http/my-api.service';
 
@@ -17,6 +19,9 @@ export class PruebaComponent implements OnInit {
   displayedColumns: string[] = ['ciudad', 'codPais', 'vehiculo', 'fecha'];
   dataSource;
   travels: Travel[] = [];
+  // to manipulate DOM
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(public myApiService: MyApiService) {}
 
@@ -29,6 +34,8 @@ export class PruebaComponent implements OnInit {
       // this.filterEntity = {} as Travel;
       this.filterType = MatTableFilter.ANYWHERE;
       this.dataSource = new MatTableDataSource(this.travels);
+      this.dataSource.sort = this.sort; // !
+      this.dataSource.paginator = this.paginator; //!
     });
   }
 }
