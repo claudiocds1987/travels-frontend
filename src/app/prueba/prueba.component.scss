@@ -5,7 +5,7 @@
   flex-direction: column;
   max-height: 500px;
   min-width: 300px;
-//   max-width: 1000px;
+  // max-width: 1000px;
 }
 
 .mat-table {
@@ -28,17 +28,21 @@
 //   padding: 0px;
 // }
 
-::ng-deep.mat-form-field-wrapper {
-  padding: 0px;
-  width: 320px !important;
-}
+// ::ng-deep.mat-form-field-wrapper {
+//   padding: 0px;
+//   //width: 320px !important;
+// }
 
+.mat-form-field-appearance-outline, .mat-form-field-infix {
+    padding: 1em 0 1em 0;
+    width: 300px;  
+}
 
 @media (max-width: 600px) {
 
-  .mat-cell, .mat-header-cell, .mat-footer-cell{
+    .mat-cell, .mat-header-cell, .mat-footer-cell{
       padding: 0px;
-  }  
+    }  
 
   .mobile-label {
     width: 80px;
@@ -62,4 +66,5 @@
     align-items: start;
     padding: 8px 24px;
   }
+
 }

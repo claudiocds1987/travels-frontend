@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableFilterModule } from 'mat-table-filter';
 import { PruebaComponent } from './prueba/prueba.component';
 import { HttpErrorInterceptorService } from './services/http/http-error-interceptor.service';
+import { WeatherComponent } from './weather/weather.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpErrorInterceptorService } from './services/http/http-error-intercep
     LayoutComponent,
     NavComponent,
     FooterComponent,
-    PruebaComponent
+    PruebaComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
