@@ -1,12 +1,19 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ApiOpenweathermapService } from './../services/http/api-openweathermap.service';
-import { MyApiService } from './../services/http/my-api.service';
-import { Travel } from './../models/travel';
 import { MatTableDataSource } from '@angular/material/table';
+// remember npm i mat-table-filter in app.module to filter table
+import { MatTableFilter } from 'mat-table-filter';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+// models
+import { Travel } from '../models/travel';
+// services
+import { MyApiService } from './../services/http/my-api.service';
+import { ApiOpenweathermapService } from './../services/http/api-openweathermap.service';
+// mat dialog
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogWeatherComponent } from '../utils/mat-dialog-weather/mat-dialog-weather.component';
 
 @Component({
   selector: 'app-home',
@@ -15,22 +22,43 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
-  weather = {} as any;
-  dataSource: MatTableDataSource<Travel>;
-  travels: Travel [] = [];
+  filterEntity: Travel;
+  filterType: MatTableFilter;
   displayedColumns: string[] = ['ciudad', 'codPais', 'vehiculo', 'fecha', 'actions'];
+  dataSource;
+  travels: Travel[] = [];
+  data: any[] = [];
+ 
   // to manipulate DOM
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     public apiOpenWeatherService: ApiOpenweathermapService,
-    public myApiService: MyApiService
+    public myApiService: MyApiService,
+    public dialog: MatDialog //?
   ) {}
 
   ngOnInit(): void {
-    this.getWeather('San Fernando', 'ar');
     this.getTravels();
+  }
+
+  getTravels() {
+    this.filterEntity = {} as Travel;
+    this.myApiService
+      .getTravels()
+      .pipe(takeUntil(this.unsubscribe$)) // unsubscribe observable
+      .subscribe((res) => {
+        this.travels = res;
+        console.log(this.travels);
+      // remember npm i mat-table-filter in app.module to filter table
+      // Do not forget to initialize your object and it's non-primitive properties
+      // this.filterEntity = {} as Travel;
+      this.filterType = MatTableFilter.ANYWHERE;
+      this.dataSource = new MatTableDataSource(this.travels);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      });
   }
 
   getWeather(cityName: string, countryCode: string) {
@@ -38,36 +66,33 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getWeather(cityName, countryCode)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res) => {
-        this.weather = res;
-        console.log(this.weather);
+       this.data = res.list;
+        console.log('get weather: ', this.data);
+        // abro el modal "mat-dialog-weather.component"
+        this.openDialog();
       });
-  }
-
-  getTravels() {
-    this.myApiService
-      .getTravels()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((res) => {
-        this.travels = res;
-        console.log(this.travels);
-        this.dataSource = new MatTableDataSource(this.travels);
-        this.dataSource.sort = this.sort; // !
-        this.dataSource.paginator = this.paginator; //!
- 
-
-        // this.dataSource.filterPredicate = function(data, filter: string): boolean {
-        //     return data.city.toLowerCase().includes(filter) || data.vehicleType.toString() === filter;    
-        // };
-      });
-  }
-
-  applyFilter(event: Event){
-    const filterValue = (event.target as HTMLInputElement).value; // !
-    this.dataSource.filter = filterValue.trim(); // !
   }
 
   reschedule(){
-    alert('Reprogramar para otra fecha')
+    console.log('reprogramar')
+  }
+
+  cancel(){
+    console.log('cancelar viaje');
+  }
+
+  // open component dialog "mat-dialog-weather-component"
+  openDialog(): void {
+    const dialogRef = this.dialog.open(MatDialogWeatherComponent, {
+      width: '320px', // ancho del modal dialog
+      data: {
+        dataKey: this.data // envio data a mat-dialog-weather-component
+      }
+    });
+    // para cerrar el modal.
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   ngOnDestroy() {

@@ -1,0 +1,9 @@
+<ul class="mt-3">
+    <!-- para entender "data.dataKey" ver funcion openDialog() de home.component.ts -->
+    <li *ngFor="let w of data.dataKey; index as i">
+      Dia: {{ i + 1 }} -- Clima: {{ w.weather[0].main }} <br>
+      Descripción: {{ w.weather[0].description }}
+      <hr>
+    </li>
+</ul>
+<button class="btn btn-primary" (click)="closeDialog()">Cerrar</button>

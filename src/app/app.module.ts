@@ -20,7 +20,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableFilterModule } from 'mat-table-filter';
 import { PruebaComponent } from './prueba/prueba.component';
 import { HttpErrorInterceptorService } from './services/http/http-error-interceptor.service';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { WeatherComponent } from './weather/weather.component';
+import { MatDialogComponent } from './utils/mat-dialog/mat-dialog.component';
+import { MatDialogWeatherComponent } from './utils/mat-dialog-weather/mat-dialog-weather.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import { WeatherComponent } from './weather/weather.component';
     NavComponent,
     FooterComponent,
     PruebaComponent,
-    WeatherComponent
+    WeatherComponent,
+    MatDialogComponent,
+    MatDialogWeatherComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,8 @@ import { WeatherComponent } from './weather/weather.component';
     MatInputModule,
     MatMenuModule,
     MatIconModule,
-    MatTableFilterModule
+    MatTableFilterModule,
+    MatDialogModule
   ],
   providers: [
     // Interceptor

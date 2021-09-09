@@ -1,47 +1,116 @@
-// table {
-//     width: 100%;
-//   }
 
-.mat-form-field{
-    width: 100%;
-}
 
 .example-container {
-    display: flex;
-    flex-direction: column;
-    max-height: 500px;
-    min-width: 300px;
-  }
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  // max-width: 1000px;
+}
 
-  .mat-table {
-    overflow: auto;
-    // width: 100%;
-    max-height: 500px;
-  }
+.mat-table {
+  overflow: auto;
+  // width: 100%;
+  max-height: 500px;
+}
 
-  .mat-cell{
-    padding: 15px;
-  }
-  
+.mat-cell {
+  padding: 15px;
+}
+
+.mobile-label {
+  display: none;
+}
+
+// ::ng-deep.mat-cell:first-of-type,
+// ::ng-deep.mat-header-cell:first-of-type,
+// ::ng-deep.mat-footer-cell:first-of-type {
+//   padding: 0px;
+// }
+
+// ::ng-deep.mat-form-field-wrapper {
+//   padding: 0px;
+//   //width: 320px !important;
+// }
+
+.mat-form-field-appearance-outline, .mat-form-field-infix {
+    padding: 1em 0 1em 0;
+    width: 300px;  
+}
+
+@media (max-width: 600px) {
+
+    .mat-cell, .mat-header-cell, .mat-footer-cell{
+      padding: 0px;
+    }  
+
   .mobile-label {
+    width: 80px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .mat-header-row {
+    //display: none;
+    flex-direction: column;
+    min-height: 0;
+    margin-right: 15px;
+  }
+
+  .date-search {
     display: none;
   }
-  
-  @media(max-width: 600px) {
-    .mobile-label {
-      width: 80px;
-      display: inline-block;
-          font-weight: bold;
-    }
-  
-    .mat-header-row {
-      display: none;
-    }
-  
-    .mat-row { 
-      flex-direction: column;
-      align-items: start;
-      padding: 8px 24px;
-    }
+
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
   }
+
+}
+
+
+
+// .mat-form-field{
+//     width: 100%;
+// }
+
+// .example-container {
+//     display: flex;
+//     flex-direction: column;
+//     max-height: 500px;
+//     min-width: 300px;
+//   }
+
+//   .mat-table {
+//     overflow: auto;
+//     // width: 100%;
+//     max-height: 500px;
+//   }
+
+//   .mat-cell{
+//     padding: 15px;
+//   }
+  
+//   .mobile-label {
+//     display: none;
+//   }
+  
+//   @media(max-width: 600px) {
+//     .mobile-label {
+//       width: 80px;
+//       display: inline-block;
+//           font-weight: bold;
+//     }
+  
+//     .mat-header-row {
+//       display: none;
+//     }
+  
+//     .mat-row { 
+//       flex-direction: column;
+//       align-items: start;
+//       padding: 8px 24px;
+//     }
+//   }
   

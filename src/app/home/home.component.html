@@ -1,4 +1,141 @@
+<h1>mat-table-filter</h1>
+<p>Provides filtering support for @angular/material tables</p>
 
+<!-- hacer la tabla responsive -->
+
+  <div class="example-container mat-elevation-z8" matSort>
+    <mat-table
+      #table
+      matTableFilter
+      [exampleEntity]="filterEntity"
+      [filterType]="filterType"
+      [dataSource]="dataSource"
+    >
+      <ng-container matColumnDef="ciudad">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="city" [(ngModel)]="filterEntity.city" />
+          </mat-form-field>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let travels"> 
+          <span class="mobile-label">Ciudad:</span>
+          {{ travels.city }} 
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="codPais">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="cod pais"
+              [(ngModel)]="filterEntity.countryCode"
+            />
+          </mat-form-field>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let travels">
+          <span class="mobile-label">Cod pais:</span>
+          {{ travels.countryCode }} 
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="vehiculo">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              placeholder="vehiculo"
+              [(ngModel)]="filterEntity.vehicleType"
+            />
+          </mat-form-field>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let travels">
+          <span class="mobile-label">Vehiculo:</span> 
+          {{ travels.vehicleType }} 
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="fecha">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox class="date-search" [(ngModel)]="filterEntity.date">Fecha
+            </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let travels">
+          <span class="mobile-label">Fecha:</span>
+          {{ travels.date }} 
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Actions
+        </mat-header-cell>
+        <mat-cell *matCellDef="let travels">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="getWeather(travels.city, travels.countryCode)">
+              <mat-icon>wb_sunny</mat-icon>
+              <span>Ver clima</span>
+            </button>
+            <button mat-menu-item (click)="reschedule()">
+              <mat-icon>edit</mat-icon>
+              <span>Reprogramar</span>
+            </button>
+            <button mat-menu-item (click)="cancel()">
+              <mat-icon>delete</mat-icon>
+              <span>Cancelar</span>
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <div>
+      <mat-paginator
+        [length]="travels.length"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="data.length > 0">
+    <div *ngFor="let item of data">
+      <app-weather [weathers]="item.weather"></app-weather>
+    </div>
+  </div> -->
+
+  <!-- funciona -->
+  <!-- <div *ngIf="data.length > 0">
+      <app-weather [weathers]="data"></app-weather>
+  </div> -->
+  
+  <!-- <div *ngIf="data.length > 0">
+    <app-mat-dialog-weather [weathers]="data"></app-mat-dialog-weather>
+</div> -->
+
+
+ 
+
+ 
+
+  
+  
+  
+
+
+
+<!-- 
 <mat-form-field>
   <mat-label>Fitrar</mat-label>
   <input
@@ -109,5 +246,5 @@
 </div>
 
 
- 
+  -->
  
