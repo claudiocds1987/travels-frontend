@@ -9,8 +9,7 @@ export class WeatherComponent implements OnInit {
 
   // recibing from home component
   @Input() weathers: any;
-  listArray: any[] = [];
-  
+
   constructor() {}
 
   ngOnInit(): void {

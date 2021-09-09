@@ -107,21 +107,16 @@
       >
       </mat-paginator>
     </div>
-
-
-    <!-- <div *ngIf="weather.length > 0">
-      <h2>Clima de los 10 dias siguientes</h2>
-      <ul>
-        <li *ngFor="let w of caca; index as i">Dia: {{i + 1}} -- Clima: {{w.weather[0].main | json}} Descripción {{w.weather[0].description | json}}</li>
-      </ul>
-    </div> -->
-
   </div>
 
-  <div *ngIf="weather.length > 0">
-    <div *ngFor="let item of weather">
+  <!-- <div *ngIf="data.length > 0">
+    <div *ngFor="let item of data">
       <app-weather [weathers]="item.weather"></app-weather>
     </div>
+  </div> -->
+
+  <div *ngIf="data.length > 0">
+      <app-weather [weathers]="data"></app-weather>
   </div>
  
 

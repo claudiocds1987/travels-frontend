@@ -29,9 +29,7 @@ export class PruebaComponent implements OnInit {
   displayedColumns: string[] = ['ciudad', 'codPais', 'vehiculo', 'fecha', 'actions'];
   dataSource;
   travels: Travel[] = [];
-  //weather = {} as any;
-
-  weather: any[] = [];
+  data: any[] = [];
  
   // to manipulate DOM
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -43,17 +41,6 @@ export class PruebaComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    // this.filterEntity = {} as Travel;
-    // this.myApiService.getTravels().subscribe((res) => {
-    //   this.travels = res;
-    //   console.log(this.travels);
-    //   // // Do not forget to initialize your object and it's non-primitive properties
-    //   // this.filterEntity = {} as Travel;
-    //   this.filterType = MatTableFilter.ANYWHERE;
-    //   this.dataSource = new MatTableDataSource(this.travels);
-    //   this.dataSource.sort = this.sort;
-    //   this.dataSource.paginator = this.paginator;
-    // });
     this.getTravels();
   }
 
@@ -80,10 +67,8 @@ export class PruebaComponent implements OnInit {
       .getWeather(cityName, countryCode)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res) => {
-        this.weather = res.list;
-        console.log(this.weather);
-        // this.caca = res.list;
-        // console.log('CACACA', this.caca);
+       this.data = res.list;
+        console.log('get weather: ', this.data);
       });
   }
 
